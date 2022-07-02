@@ -14,10 +14,12 @@ func main() {
 	t := time.Now()
 
 	log.Println("Получаем читатель")
-	xmlReader, _ := reader.NewLemmaProviderFromFile("./xml/OpcorporaTestingFile.xml")
+	xmlReader, _ := reader.NewLemmaProviderFromFile("./xml/dict.opcorpora.xml.xml")
+	//xmlReader, _ := reader.NewLemmaProviderFromFile("./xml/OpcorporaTestingFile.xml") // dev
 	log.Println(time.Since(t))
 
-	lemmaStorage := storage.CreateLemmaStorage(storage.WithLogger|storage.WithTimer, nil)
+	lemmaStorage := storage.CreateLemmaStorage(storage.WithLogger|storage.WithTimer|storage.WithElastic, nil)
+	// lemmaStorage := storage.CreateLemmaStorage(storage.WithLogger|storage.WithTimer, nil) // dev
 
 	//запустить как горутину
 	wg := new(sync.WaitGroup)
