@@ -29,7 +29,7 @@ func TestLemmaEncoding(t *testing.T) {
 
 	lemma := new(Lemma)
 
-	err := xml.Unmarshal(xmlData, &lemma)
+	err := xml.Unmarshal(xmlData, lemma)
 	if err != nil {
 		t.Error(err)
 	}

@@ -53,7 +53,7 @@ type Lemma struct {
 	F   []LemmaAttribute `xml:"f" json:"F"`
 }
 
-func (l Lemma) ShortString() string {
+func (l *Lemma) ShortString() string {
 	return fmt.Sprintf("Lemma id=%s rev=%s term=%s", l.ID, l.Rev, l.L.T)
 }
 

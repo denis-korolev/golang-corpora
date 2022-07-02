@@ -17,7 +17,7 @@ import (
 )
 
 type LemmaStorageInterface interface {
-	InsertNewLemma(l entities.Lemma) error
+	InsertNewLemma(l *entities.Lemma) error
 }
 
 type LoggerLemmaStorage struct {
@@ -36,7 +36,7 @@ func NewLoggerStorage(storage LemmaStorageInterface, logger *log.Logger) (*Logge
 	}, nil
 }
 
-func (s *LoggerLemmaStorage) InsertNewLemma(l entities.Lemma) error {
+func (s *LoggerLemmaStorage) InsertNewLemma(l *entities.Lemma) error {
 	s.logger.Printf("inset new lemma: %s\n", l.ShortString())
 	if s.storage != nil {
 		return s.storage.InsertNewLemma(l)
@@ -60,7 +60,7 @@ func NewTimerStorage(storage LemmaStorageInterface, logger *log.Logger) (*TimerL
 	}, nil
 }
 
-func (s *TimerLemmaStorage) InsertNewLemma(l entities.Lemma) error {
+func (s *TimerLemmaStorage) InsertNewLemma(l *entities.Lemma) error {
 	t := time.Now()
 	var err error
 	if s.storage != nil {
@@ -111,7 +111,7 @@ func NewElasticStorage() (*ElasticLemmaStorage, error) {
 	}, nil
 }
 
-func (s *ElasticLemmaStorage) InsertNewLemma(l entities.Lemma) error {
+func (s *ElasticLemmaStorage) InsertNewLemma(l *entities.Lemma) error {
 	body, _ := json.Marshal(&l)
 
 	// Set up the request object.
