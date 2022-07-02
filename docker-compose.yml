@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  elastic:
+    image: elasticsearch:8.1.0
+    ports:
+      - "9200:9200"
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - http.port=9200
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+      - bootstrap.memory_lock=true
+      - network.publish_host=localhost
+      - 'ES_JAVA_OPTS=-Xms750m -Xmx750m'
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  elasticAdmin:
+    image: appbaseio/dejavu
+    ports:
+      - "1358:1358"
+    links:
+      - elastic
+
+  app:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - 8081:8080
+    depends_on:
+      - elastic
+
+volumes:
+  esdata:

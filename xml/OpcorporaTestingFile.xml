@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<dictionary version="0.92" revision="417150">
+    <grammemes>
+        <grammeme parent="POST">
+            <name>Ms-f</name>
+            <alias>ор</alias>
+            <description>колебание по роду (м/ж/с): кофе, вольво</description>
+        </grammeme>
+        <grammeme parent="POST">
+            <name>Hypo</name>
+            <alias>гипот</alias>
+            <description>гипотетическая форма слова (победю, асфальтовее)</description>
+        </grammeme>
+    </grammemes>
+    <restrictions>
+        <restr type="obligatory" auto="0">
+            <left type="lemma"></left>
+            <right type="lemma">POST</right>
+        </restr>
+        <restr type="forbidden" auto="0">
+            <left type="form">inan</left>
+            <right type="form">neut</right>
+        </restr>
+        <restr type="maybe" auto="0">
+            <left type="lemma">NOUN</left>
+            <right type="lemma">Trad</right>
+        </restr>
+    </restrictions>
+    <lemmata>
+        <lemma id="1" rev="1">
+            <l t="ёж">
+                <g v="NOUN"/>
+                <g v="anim"/>
+                <g v="masc"/>
+            </l>
+            <f t="ёж">
+                <g v="sing"/>
+                <g v="nomn"/>
+            </f>
+            <f t="ежа">
+                <g v="sing"/>
+                <g v="gent"/>
+            </f>
+            <f t="ежу">
+                <g v="sing"/>
+                <g v="datv"/>
+            </f>
+            <f t="ежа">
+                <g v="sing"/>
+                <g v="accs"/>
+            </f>
+            <f t="ежом">
+                <g v="sing"/>
+                <g v="ablt"/>
+            </f>
+            <f t="еже">
+                <g v="sing"/>
+                <g v="loct"/>
+            </f>
+            <f t="ежи">
+                <g v="plur"/>
+                <g v="nomn"/>
+            </f>
+            <f t="ежей">
+                <g v="plur"/>
+                <g v="gent"/>
+            </f>
+            <f t="ежам">
+                <g v="plur"/>
+                <g v="datv"/>
+            </f>
+            <f t="ежей">
+                <g v="plur"/>
+                <g v="accs"/>
+            </f>
+            <f t="ежами">
+                <g v="plur"/>
+                <g v="ablt"/>
+            </f>
+            <f t="ежах">
+                <g v="plur"/>
+                <g v="loct"/>
+            </f>
+        </lemma>
+        <lemma id="2" rev="2">
+            <l t="ёж">
+                <g v="NOUN"/>
+                <g v="inan"/>
+                <g v="masc"/>
+            </l>
+            <f t="ёж">
+                <g v="sing"/>
+                <g v="nomn"/>
+            </f>
+            <f t="ежа">
+                <g v="sing"/>
+                <g v="gent"/>
+            </f>
+            <f t="ежу">
+                <g v="sing"/>
+                <g v="datv"/>
+            </f>
+            <f t="ёж">
+                <g v="sing"/>
+                <g v="accs"/>
+            </f>
+            <f t="ежом">
+                <g v="sing"/>
+                <g v="ablt"/>
+            </f>
+            <f t="еже">
+                <g v="sing"/>
+                <g v="loct"/>
+            </f>
+            <f t="ежи">
+                <g v="plur"/>
+                <g v="nomn"/>
+            </f>
+            <f t="ежей">
+                <g v="plur"/>
+                <g v="gent"/>
+            </f>
+            <f t="ежам">
+                <g v="plur"/>
+                <g v="datv"/>
+            </f>
+            <f t="ежи">
+                <g v="plur"/>
+                <g v="accs"/>
+            </f>
+            <f t="ежами">
+                <g v="plur"/>
+                <g v="ablt"/>
+            </f>
+            <f t="ежах">
+                <g v="plur"/>
+                <g v="loct"/>
+            </f>
+        </lemma>
+    </lemmata>
+    <link_types>
+        <type id="1">ADJF-ADJS</type>
+        <type id="2">ADJF-COMP</type>
+        <type id="3">INFN-VERB</type>
+        <type id="4">INFN-PRTF</type>
+        <type id="5">INFN-GRND</type>
+        <type id="6">PRTF-PRTS</type>
+        <type id="7">NAME-PATR</type>
+        <type id="8">PATR_MASC-PATR_FEMN</type>
+        <type id="9">SURN_MASC-SURN_FEMN</type>
+        <type id="10">SURN_MASC-SURN_PLUR</type>
+        <type id="11">PERF-IMPF</type>
+        <type id="12">ADJF-SUPR_ejsh</type>
+        <type id="13">PATR_MASC_FORM-PATR_MASC_INFR</type>
+        <type id="14">PATR_FEMN_FORM-PATR_FEMN_INFR</type>
+        <type id="15">ADJF_eish-SUPR_nai_eish</type>
+        <type id="16">ADJF-SUPR_ajsh</type>
+        <type id="17">ADJF_aish-SUPR_nai_aish</type>
+        <type id="18">ADJF-SUPR_suppl</type>
+        <type id="19">ADJF-SUPR_nai</type>
+        <type id="20">ADJF-SUPR_slng</type>
+        <type id="21">FULL-CONTRACTED</type>
+        <type id="22">NORM-ORPHOVAR</type>
+        <type id="23">CARDINAL-ORDINAL</type>
+        <type id="24">SBST_MASC-SBST_FEMN</type>
+        <type id="25">SBST_MASC-SBST_PLUR</type>
+        <type id="26">ADVB-COMP</type>
+        <type id="27">ADJF_TEXT-ADJF_NUMBER</type>
+    </link_types>
+    <links>
+        <link id="271539" from="128220" to="128218" type="1"/>
+        <link id="271540" from="82427" to="395181" type="21"/>
+    </links>
+</dictionary>
