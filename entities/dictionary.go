@@ -1,5 +1,7 @@
 package entities
 
+import "fmt"
+
 type Dictionary struct {
 	Version   string `xml:"version,attr"`
 	Revision  string `xml:"revision,attr"`
@@ -26,22 +28,7 @@ type Dictionary struct {
 		} `xml:"restr"`
 	} `xml:"restrictions"`
 	Lemmata struct {
-		Lemma []struct {
-			ID  string `xml:"id,attr"`
-			Rev string `xml:"rev,attr"`
-			L   struct {
-				T string `xml:"t,attr"`
-				G []struct {
-					V string `xml:"v,attr"`
-				} `xml:"g"`
-			} `xml:"l"`
-			F []struct {
-				T string `xml:"t,attr"`
-				G []struct {
-					V string `xml:"v,attr"`
-				} `xml:"g"`
-			} `xml:"f"`
-		} `xml:"lemma"`
+		Lemma []Lemma `xml:"lemma"`
 	} `xml:"lemmata"`
 	LinkTypes struct {
 		Type []struct {
@@ -59,19 +46,20 @@ type Dictionary struct {
 	} `xml:"links"`
 }
 
-type LemmaJson struct {
-	ID  string `json:"ID"`
-	Rev string `json:"Rev"`
-	L   struct {
-		T string `json:"T"`
-		G []struct {
-			V string `json:"V"`
-		} `json:"G"`
-	} `json:"L"`
-	F []struct {
-		T string `json:"T"`
-		G []struct {
-			V string `json:"V"`
-		} `json:"G"`
-	} `json:"F"`
+type Lemma struct {
+	ID  string           `xml:"id,attr" json:"ID"`
+	Rev string           `xml:"rev,attr" json:"Rev"`
+	L   LemmaAttribute   `xml:"l" json:"L"`
+	F   []LemmaAttribute `xml:"f" json:"F"`
+}
+
+func (l Lemma) ShortString() string {
+	return fmt.Sprintf("Lemma id=%s rev=%s term=%s", l.ID, l.Rev, l.L.T)
+}
+
+type LemmaAttribute struct {
+	T string `xml:"t,attr" json:"T"`
+	G []struct {
+		V string `xml:"v,attr" json:"V"`
+	} `xml:"g" json:"G"`
 }
