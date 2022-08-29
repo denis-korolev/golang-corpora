@@ -18,14 +18,14 @@ import (
 
 func main() {
 	var newDictionary entities.Dictionary
-	var lemmaJson entities.LemmaJson
+	var lemmaJson entities.Lemma
 
 	t := time.Now()
 	lemmaChan := make(chan string)
 
 	//"OpcorporaTestingFile.xml" "dict.opcorpora.xml"
 	fmt.Println("Открываем XML.")
-	fileData, error := utils.OpenFileFs("xml", "dict.opcorpora.xml")
+	fileData, error := utils.OpenFileFs("xml", "OpcorporaTestingFile.xml")
 	if error != nil {
 		log.Fatal(error)
 	}
@@ -56,6 +56,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println(string(m))
 		lemmaChan <- string(m)
 	}
 	close(lemmaChan)
@@ -69,7 +70,7 @@ func main() {
 	fmt.Scanln(&input)
 }
 
-func sendLemmaToElastic(lemmaChan chan string, lemmaJson entities.LemmaJson, es *elasticsearch.Client, wg *sync.WaitGroup) {
+func sendLemmaToElastic(lemmaChan chan string, lemmaJson entities.Lemma, es *elasticsearch.Client, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for m := range lemmaChan {
 		json.Unmarshal([]byte(m), &lemmaJson)
