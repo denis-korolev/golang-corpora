@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"github.com/dustin/go-humanize"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
@@ -152,17 +153,17 @@ func BulkLemma(lemmaChan chan entities.Lemma, es *elasticsearch.Client) {
 	if biStats.NumFailed > 0 {
 		log.Fatalf(
 			"Indexed [%s] documents with [%s] errors in %s (%s docs/sec)",
-			int64(biStats.NumFlushed),
-			int64(biStats.NumFailed),
+			humanize.Comma(int64(biStats.NumFlushed)),
+			humanize.Comma(int64(biStats.NumFailed)),
 			dur.Truncate(time.Millisecond),
-			int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed)),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed))),
 		)
 	} else {
 		log.Printf(
 			"Sucessfuly indexed [%s] documents in %s (%s docs/sec)",
-			int64(biStats.NumFlushed),
+			humanize.Comma(int64(biStats.NumFlushed)),
 			dur.Truncate(time.Millisecond),
-			int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed)),
+			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed))),
 		)
 	}
 
