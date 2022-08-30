@@ -35,4 +35,4 @@ run-main-go:
 	docker-compose run app go run main.go
 
 test:
-	docker-compose exec app go test /tests
+	docker-compose run app go test -v ./tests/
