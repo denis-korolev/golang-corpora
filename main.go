@@ -1,16 +1,13 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"log"
 	"parser/clients"
 	"parser/entities"
 	"parser/utils"
-	"strings"
 	"sync"
 	"time"
 )
@@ -54,35 +51,6 @@ func sendLemmaToElastic(lemmaChan chan entities.Lemma, es *elasticsearch.Client,
 		if err != nil {
 			log.Fatal("Ошибка маршалинга в json: %s", err)
 		}
-
-		// Set up the request object.
-		req := esapi.IndexRequest{
-			Index:      "lemma",
-			DocumentID: m.ID,
-			Body:       strings.NewReader(string(jsonData)),
-			Refresh:    "true",
-		}
-
-		//// Perform the request with the client.
-		res, err := req.Do(context.Background(), es)
-		//log.Println(res)
-		if err != nil {
-			log.Fatalf("Error getting response: %s", err)
-		}
-		defer res.Body.Close()
-
-		if res.IsError() {
-			log.Printf("[%s] Error indexing document ID=%d", res.Status())
-		} else {
-			// Deserialize the response into a map.
-			var r map[string]interface{}
-			if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-				log.Printf("Error parsing the response body: %s", err)
-			} else {
-				// Print the response status and indexed document version.
-				//log.Printf("[%s] %s; version=%d", res.Status(), r["result"], int(r["_version"].(float64)))
-			}
-		}
-
+		clients.IndexLemmaData(m.ID, jsonData, es)
 	}
 }
