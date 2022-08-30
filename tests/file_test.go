@@ -4,6 +4,7 @@ import (
 	"parser/entities"
 	"parser/utils"
 	"regexp"
+	"sync"
 	"testing"
 )
 
@@ -16,14 +17,10 @@ func TestOpenFileFs(t *testing.T) {
 }
 
 func TestReadXmlToChan(t *testing.T) {
-
+	var wg sync.WaitGroup
 	lemmaChan := make(chan entities.Lemma, 20)
-	error := utils.ReadXmlToChan("./../xml/OpcorporaTestingFile.xml", lemmaChan)
-
-	if error != nil {
-		t.Error(error)
-		t.Fail()
-	}
+	wg.Add(1)
+	utils.ReadXmlToChan("./../xml/OpcorporaTestingFile.xml", lemmaChan, &wg)
 
 	if len(lemmaChan) != 2 {
 		t.Fail()
@@ -37,5 +34,5 @@ func TestReadXmlToChan(t *testing.T) {
 			t.Fail()
 		}
 	}
-
+	wg.Wait()
 }

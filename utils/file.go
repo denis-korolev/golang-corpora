@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 	"parser/entities"
+	"sync"
 )
 
 func CreateFile(fileName string) {
@@ -75,7 +76,8 @@ func OpenFileOs() {
 	}
 }
 
-func ReadXmlToChan(path string, lemmaChan chan entities.Lemma) error {
+func ReadXmlToChan(path string, lemmaChan chan entities.Lemma, wg *sync.WaitGroup) {
+	defer wg.Done()
 	defer close(lemmaChan)
 	filePath, err := os.Open(path)
 	if err != nil {
@@ -90,10 +92,9 @@ func ReadXmlToChan(path string, lemmaChan chan entities.Lemma) error {
 			if error == io.EOF {
 				log.Println("Дочитали до конца")
 			} else {
-				return error
+				log.Fatal(error)
 			}
-
-			return nil
+			break
 		}
 
 		// Типа того, что token.(type) извлекаем тип через рефлексию.
