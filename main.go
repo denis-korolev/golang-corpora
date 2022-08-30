@@ -24,16 +24,14 @@ func main() {
 
 	fmt.Println(time.Now().Sub(t))
 	fmt.Println("Запускаем чтение XML в канал.")
-	//"OpcorporaTestingFile.xml" "dict.opcorpora.xml"
+
 	wg.Add(1)
 	go utils.ReadXmlToChan("xml/dict.opcorpora.xml", lemmaChan, &wg)
 
 	fmt.Println("Запускаем горутины для эластика.")
 	fmt.Println(time.Now().Sub(t))
-	for i := 0; i < 20; i++ {
-		wg.Add(1)
-		go sendLemmaToElastic(lemmaChan, es, &wg)
-	}
+
+	clients.BulkLemma(lemmaChan, es)
 
 	wg.Wait()
 	fmt.Println("All goroutines complete.")
