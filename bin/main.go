@@ -1,7 +1,7 @@
 package main
 
 import (
-	"parser/cli/cmd"
+	"parser/bin/cmd"
 	"parser/config"
 )
 

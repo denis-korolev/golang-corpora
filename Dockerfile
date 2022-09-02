@@ -5,3 +5,7 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 RUN go mod download
+
+RUN go env -w CGO_ENABLED=0
+RUN go env -w GOOS=linux
+RUN go env -w GOARCH=amd64
