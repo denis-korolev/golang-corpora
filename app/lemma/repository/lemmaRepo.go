@@ -10,7 +10,6 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esutil"
 	"log"
 	"parser/app/lemma/entities"
-	"runtime"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -47,20 +46,10 @@ func IndexLemmaData(documentID string, body []byte, es *elasticsearch.Client) {
 	}
 }
 
-func BulkLemma(lemmaChan <-chan entities.Lemma, es *elasticsearch.Client) {
+func BulkLemma(lemmaChan <-chan entities.Lemma, bi esutil.BulkIndexer) {
 
 	var countSuccessful uint64
 
-	bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
-		Index:         "lemma",          // The default index name
-		Client:        es,               // The Elasticsearch client
-		NumWorkers:    runtime.NumCPU(), // The number of worker goroutines
-		FlushBytes:    5000000,          // The flush threshold in bytes
-		FlushInterval: 30 * time.Second, // The periodic flush interval
-	})
-	if err != nil {
-		log.Fatalf("Error creating the indexer: %s", err)
-	}
 	start := time.Now().UTC()
 	for a := range lemmaChan {
 		// Prepare the data payload: encode article to JSON

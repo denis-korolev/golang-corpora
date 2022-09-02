@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/spf13/viper"
 	"io"
 	"log"
 	"os"
@@ -12,15 +11,13 @@ import (
 	"time"
 )
 
-func StartImportToChan(wg *sync.WaitGroup) <-chan entities.Lemma {
+func StartImportToChan(path string, wg *sync.WaitGroup) <-chan entities.Lemma {
 	t := time.Now()
 	lemmaChan := make(chan entities.Lemma, 1000)
 
 	wg.Add(1)
 
 	fmt.Println(time.Now().Sub(t))
-
-	path := viper.GetString("ROOT_PATH") + "/xml/dict.opcorpora.xml"
 	fmt.Println("Запускаем горутину чтения XML в канал.")
 	go readXmlToChan(path, lemmaChan, wg)
 
