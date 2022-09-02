@@ -35,4 +35,4 @@ run-main-go:
 	docker-compose run app go run main.go
 
 test:
-	docker-compose run app go test -v ./...
+	docker-compose run app gotestsum --format testname
