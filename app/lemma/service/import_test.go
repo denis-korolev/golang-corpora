@@ -11,7 +11,7 @@ func TestReadXmlToChan(t *testing.T) {
 	lemmaChan := make(chan entities.Lemma, 20)
 	wg.Add(1)
 
-	readXmlToChan("./../../../xml/OpcorporaTestingFile.xml", lemmaChan, &wg)
+	readXmlToChan("./../../../common/OpcorporaTestingFile.xml", lemmaChan, &wg)
 
 	if len(lemmaChan) != 2 {
 		t.Fail()

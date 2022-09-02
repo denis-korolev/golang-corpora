@@ -2,12 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"log"
+	"os"
 	"parser/app/lemma/repository"
 	"parser/app/lemma/service"
 	"parser/clients"
-	"parser/config"
 	"sync"
 	"time"
 
@@ -21,8 +20,6 @@ var importLemmaCmd = &cobra.Command{
 Ну когда нибудь позже я все тут опишу
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		config.CalculatetConfig()
-
 		var wg sync.WaitGroup
 		t := time.Now()
 
@@ -32,8 +29,8 @@ var importLemmaCmd = &cobra.Command{
 		}
 		bi := clients.NewLemmaBulkIndexer(es)
 
-		path := viper.GetString("ROOT_PATH") + "/xml/dict.opcorpora.xml"
-		lemmaChan := service.StartImportToChan(path, &wg)
+		xmlFile := service.DownloadArchive()
+		lemmaChan := service.StartImportToChan(xmlFile, &wg)
 
 		fmt.Println("Запускаем горутины для эластика.")
 		fmt.Println(time.Now().Sub(t))
@@ -44,6 +41,9 @@ var importLemmaCmd = &cobra.Command{
 		fmt.Println("All goroutines complete.")
 		fmt.Println(time.Now().Sub(t))
 
+		fmt.Println("Удаляем XML " + xmlFile)
+		os.Remove(xmlFile)
+		fmt.Println("Удалили")
 	},
 }
 

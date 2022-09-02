@@ -14,6 +14,7 @@ func CalculatetConfig() {
 	_, b, _, _ := runtime.Caller(0)
 	basepath := filepath.Dir(filepath.Join(b, "/../"))
 	viper.Set("ROOT_PATH", basepath)
+	viper.Set("VAR_PATH", filepath.Join(basepath, "/var"))
 
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")

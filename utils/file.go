@@ -47,7 +47,7 @@ func OpenFileFs(dir string, filename string) ([]byte, error) {
 }
 
 func OpenFileOs() {
-	file, error := os.Open("xml/OpcorporaTestingFile.xml")
+	file, error := os.Open("common/OpcorporaTestingFile.xml")
 
 	if error != nil {
 		log.Fatal(error)
