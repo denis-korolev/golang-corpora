@@ -1,11 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8"
 	"log"
 	"parser/clients"
+	"parser/config"
 	"parser/entities"
 	"parser/utils"
 	"sync"
@@ -13,6 +12,8 @@ import (
 )
 
 func main() {
+	config.CalculatetConfig()
+
 	var wg sync.WaitGroup
 	t := time.Now()
 	lemmaChan := make(chan entities.Lemma, 1000)
@@ -40,15 +41,4 @@ func main() {
 	fmt.Println("Нажми на любую клавишу")
 	var input string
 	fmt.Scanln(&input)
-}
-
-func sendLemmaToElastic(lemmaChan chan entities.Lemma, es *elasticsearch.Client, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for m := range lemmaChan {
-		jsonData, err := json.Marshal(m)
-		if err != nil {
-			log.Fatal("Ошибка маршалинга в json: %s", err)
-		}
-		clients.IndexLemmaData(m.ID, jsonData, es)
-	}
 }
