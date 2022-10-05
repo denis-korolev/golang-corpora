@@ -6,18 +6,19 @@ Usage: \n\
          | up                           Запустить установленные контейнеры \n\
          | down                         Остановить и уничтожить все контейнеры приложения\n\
          | restart                      Перезапустить проект\n\
-         | run-main-go                  Запуск main.go\n\
+         | run-web                  	Запуск web приложения\n\
          | test                         Запуск всех тестов\n\
+         | run-cli                      Вывод списка cli команд\n\
     "
 
 init: docker-down-clear \
 	docker-pull docker-build up
-up: docker-up
+up: run-web
 down: docker-down
 restart: down up
 
-docker-up:
-	docker-compose up -d
+#docker-up:
+#	docker-compose up -d
 
 docker-down:
 	docker-compose down --remove-orphans
@@ -31,8 +32,11 @@ docker-pull:
 docker-build:
 	docker-compose build
 
-run-main-go:
-	docker-compose run app go run main.go
+run-web:
+	docker-compose run --service-ports app go run main.go
+
+run-cli:
+	docker-compose run app go run bin/main.go
 
 test:
 	docker-compose run app gotestsum --format testname
