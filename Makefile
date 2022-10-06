@@ -8,7 +8,8 @@ Usage: \n\
          | restart                      Перезапустить проект\n\
          | run-web                  	Запуск web приложения\n\
          | test                         Запуск всех тестов\n\
-         | run-cli                      Вывод списка cli команд\n\
+         | run-cli-list                 Вывод списка cli команд\n\
+         | run-shell                 	Запустить контейнер app\n\
     "
 
 init: docker-down-clear \
@@ -35,8 +36,11 @@ docker-build:
 run-web:
 	docker-compose run --service-ports app go run main.go
 
-run-cli:
+run-cli-list:
 	docker-compose run app go run bin/main.go
+
+run-shell:
+	docker-compose run app
 
 test:
 	docker-compose run app gotestsum --format testname
