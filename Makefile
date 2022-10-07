@@ -10,6 +10,7 @@ Usage: \n\
          | test                         Запуск всех тестов\n\
          | run-cli-list                 Вывод списка cli команд\n\
          | run-shell                 	Запустить контейнер app\n\
+         | swagger-generate             Генерировать Swagger\n\
     "
 
 init: docker-down-clear \
@@ -38,6 +39,9 @@ run-web:
 
 run-cli-list:
 	docker-compose run app go run bin/main.go
+
+swagger-generate:
+	docker-compose run app swag init
 
 run-shell:
 	docker-compose run app
