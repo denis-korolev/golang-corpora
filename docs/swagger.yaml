@@ -1,3 +1,10 @@
+definitions:
+  ping.Response:
+    properties:
+      message:
+        example: Hello
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -5,14 +12,14 @@ paths:
     get:
       consumes:
       - application/json
-      description: do ping
+      description: Метод для вывода тестового сообщения
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/ping.Response'
       summary: ping example
       tags:
       - example

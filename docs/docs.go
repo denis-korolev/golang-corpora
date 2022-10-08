@@ -18,7 +18,7 @@ const docTemplate = `{
     "paths": {
         "/ping": {
             "get": {
-                "description": "do ping",
+                "description": "Метод для вывода тестового сообщения",
                 "consumes": [
                     "application/json"
                 ],
@@ -33,9 +33,20 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/ping.Response"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ping.Response": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Hello"
                 }
             }
         }

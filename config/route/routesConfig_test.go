@@ -15,5 +15,5 @@ func TestSetupRoutes(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, w.Body.String(), "{\"message\":\"pong\"}")
+	assert.Equal(t, w.Body.String(), "{\"message\":\"Hello World\"}")
 }

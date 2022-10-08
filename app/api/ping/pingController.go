@@ -10,14 +10,17 @@ import (
 // PingExample godoc
 // @Summary ping example
 // @Schemes
-// @Description do ping
+// @Description Метод для вывода тестового сообщения
 // @Tags example
 // @Accept json
 // @Produce json
-// @Success 200 {string} Helloworld
+// @Success 200 {object} ping.Response
 // @Router /ping [get]
 func PingAction(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "pong",
-	})
+
+	resp := new(Response)
+
+	resp.Message = "Hello World"
+
+	c.JSON(http.StatusOK, resp)
 }
