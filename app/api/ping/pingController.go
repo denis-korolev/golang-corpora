@@ -16,7 +16,7 @@ import (
 // @Produce json
 // @Success 200 {object} ping.Response
 // @Router /ping [get]
-func PingAction(c *gin.Context) {
+func HelloAction(c *gin.Context) {
 
 	resp := new(Response)
 

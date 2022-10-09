@@ -16,6 +16,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/lemma": {
+            "get": {
+                "description": "Метод для вывода списка лемм",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "example"
+                ],
+                "summary": "Вывод списка лемм по запросу",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/lemma.ListResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Метод для вывода тестового сообщения",
@@ -33,7 +56,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ping.Response"
+                            "$ref": "#/definitions/test.Response"
                         }
                     }
                 }
@@ -41,7 +64,27 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "ping.Response": {
+        "lemma.ListItem": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string",
+                    "example": "Бугульма"
+                }
+            }
+        },
+        "lemma.ListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/lemma.ListItem"
+                    }
+                }
+            }
+        },
+        "test.Response": {
             "type": "object",
             "properties": {
                 "message": {

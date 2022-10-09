@@ -1,5 +1,18 @@
 definitions:
-  ping.Response:
+  lemma.ListItem:
+    properties:
+      text:
+        example: Бугульма
+        type: string
+    type: object
+  lemma.ListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/lemma.ListItem'
+        type: array
+    type: object
+  test.Response:
     properties:
       message:
         example: Hello
@@ -8,6 +21,21 @@ definitions:
 info:
   contact: {}
 paths:
+  /lemma:
+    get:
+      consumes:
+      - application/json
+      description: Метод для вывода списка лемм
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lemma.ListResponse'
+      summary: Вывод списка лемм по запросу
+      tags:
+      - example
   /ping:
     get:
       consumes:
@@ -19,7 +47,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ping.Response'
+            $ref: '#/definitions/test.Response'
       summary: ping example
       tags:
       - example
