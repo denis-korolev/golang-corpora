@@ -1,9 +1,7 @@
 package lemma
 
-type ListResponse struct {
-	Data []ListItem `json:"data"`
-}
+import "parser/app/lemma/entities"
 
-type ListItem struct {
-	Text string `json:"text" example:"Бугульма"`
+type ListResponse struct {
+	Data []entities.Lemma `json:"data"`
 }

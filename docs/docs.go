@@ -56,7 +56,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/test.Response"
+                            "$ref": "#/definitions/ping.Response"
                         }
                     }
                 }
@@ -64,12 +64,61 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "lemma.ListItem": {
+        "entities.Lemma": {
             "type": "object",
             "properties": {
-                "text": {
+                "F": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "G": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "V": {
+                                            "type": "string",
+                                            "example": "значение"
+                                        }
+                                    }
+                                }
+                            },
+                            "T": {
+                                "type": "string",
+                                "example": "текст"
+                            }
+                        }
+                    }
+                },
+                "ID": {
                     "type": "string",
-                    "example": "Бугульма"
+                    "example": "ID леммы"
+                },
+                "L": {
+                    "type": "object",
+                    "properties": {
+                        "G": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "V": {
+                                        "type": "string",
+                                        "example": "значение"
+                                    }
+                                }
+                            }
+                        },
+                        "T": {
+                            "type": "string",
+                            "example": "текст леммы"
+                        }
+                    }
+                },
+                "Rev": {
+                    "type": "string",
+                    "example": "номер последней ревизии этой леммы"
                 }
             }
         },
@@ -79,12 +128,12 @@ const docTemplate = `{
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/lemma.ListItem"
+                        "$ref": "#/definitions/entities.Lemma"
                     }
                 }
             }
         },
-        "test.Response": {
+        "ping.Response": {
             "type": "object",
             "properties": {
                 "message": {

@@ -28,14 +28,11 @@ func ListAction(c *gin.Context) {
 
 	result := repository.SearchLemmaData("lemma", "T=муха", es)
 
-	//тут надо сделать вывод даных
-
 	resp := new(ListResponse)
 
-	item := new(ListItem)
-	item.Text = string(result.Hits.Total.Value)
-
-	resp.Data = append(resp.Data, *item)
+	for _, hit := range result.Hits.Hits {
+		resp.Data = append(resp.Data, hit.Source)
+	}
 
 	c.JSON(http.StatusOK, resp)
 }

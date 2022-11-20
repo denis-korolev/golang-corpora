@@ -23,18 +23,18 @@ type Lemmata struct {
 }
 
 type Lemma struct {
-	ID  string `xml:"id,attr" json:"ID"`
-	Rev string `xml:"rev,attr" json:"Rev"`
+	ID  string `xml:"id,attr" json:"ID" example:"ID леммы"`
+	Rev string `xml:"rev,attr" json:"Rev" example:"номер последней ревизии этой леммы"`
 	L   struct {
-		T string `xml:"t,attr" json:"T"`
+		T string `xml:"t,attr" json:"T" example:"текст леммы"`
 		G []struct {
-			V string `xml:"v,attr" json:"V"`
+			V string `xml:"v,attr" json:"V" example:"значение"`
 		} `xml:"g" json:"G"`
 	} `xml:"l" json:"L"`
 	F []struct {
-		T string `xml:"t,attr" json:"T"`
+		T string `xml:"t,attr" json:"T" example:"текст"`
 		G []struct {
-			V string `xml:"v,attr" json:"V"`
+			V string `xml:"v,attr" json:"V" example:"значение"`
 		} `xml:"g" json:"G"`
 	} `xml:"f" json:"F"`
 }

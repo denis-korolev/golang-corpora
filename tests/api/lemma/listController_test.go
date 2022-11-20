@@ -18,14 +18,14 @@ func init() {
 }
 
 func TestListAction(t *testing.T) {
-	teardownSuite := setupSuite(t)
-	defer teardownSuite(t)
+	//teardownSuite := setupSuite(t)
+	//defer teardownSuite(t)
+
+	//todo сделать объект запроса с параметрами
+	//todo сравнить ответ
+	//todo сделать описание граммем, чтобы можно было по ним фильтровать
 
 	router := route.SetupRoutes()
-
-	//Подготовить данные в бд, чтобы мы могли их оттуда достать
-	//1. Заиндексировать в бд
-	//2. Сделать запрос на выборку данных
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodGet, "/list", nil)

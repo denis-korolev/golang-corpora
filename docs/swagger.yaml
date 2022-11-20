@@ -1,18 +1,51 @@
 definitions:
-  lemma.ListItem:
+  entities.Lemma:
     properties:
-      text:
-        example: Бугульма
+      F:
+        items:
+          properties:
+            G:
+              items:
+                properties:
+                  V:
+                    example: значение
+                    type: string
+                type: object
+              type: array
+            T:
+              example: текст
+              type: string
+          type: object
+        type: array
+      ID:
+        example: ID леммы
+        type: string
+      L:
+        properties:
+          G:
+            items:
+              properties:
+                V:
+                  example: значение
+                  type: string
+              type: object
+            type: array
+          T:
+            example: текст леммы
+            type: string
+        type: object
+      Rev:
+        example: номер последней ревизии этой леммы
         type: string
     type: object
   lemma.ListResponse:
     properties:
       data:
         items:
-          $ref: '#/definitions/lemma.ListItem'
+          $ref: '#/definitions/entities.Lemma'
         type: array
     type: object
-  test.Response:
+  ping.Response:
     properties:
       message:
         example: Hello
@@ -47,7 +80,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/test.Response'
+            $ref: '#/definitions/ping.Response'
       summary: ping example
       tags:
       - example
