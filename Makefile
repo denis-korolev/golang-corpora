@@ -38,13 +38,13 @@ run-web:
 	docker-compose run --service-ports app go run main.go
 
 run-cli-list:
-	docker-compose run app go run bin/main.go
+	docker-compose run --rm app go run bin/main.go
 
 swagger-generate:
-	docker-compose run app swag init
+	docker-compose run --rm app swag init
 
 run-shell:
 	docker-compose run app
 
 test:
-	docker-compose run app gotestsum --format testname
+	docker-compose run --rm app gotestsum --format testname

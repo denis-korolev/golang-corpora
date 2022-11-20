@@ -46,6 +46,62 @@ func IndexLemmaData(documentID string, body []byte, es *elasticsearch.Client) {
 	}
 }
 
+func DeleteLemmaDataByID(documentID string, es *elasticsearch.Client) {
+	// Set up the request object.
+	req := esapi.DeleteRequest{
+		Index:      "lemma",
+		DocumentID: documentID,
+		Refresh:    "true",
+	}
+
+	//// Perform the request with the client.
+	res, err := req.Do(context.Background(), es)
+	//log.Println(res)
+	if err != nil {
+		log.Fatalf("Error getting response: %s", err)
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		log.Printf("[%s] Error deleting document ID=%s", res.Status(), documentID)
+	} else {
+		// Deserialize the response into a map.
+		var r map[string]interface{}
+		if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
+			log.Printf("Error parsing the response body: %s", err)
+		} else {
+			// Print the response status and indexed document version.
+			//log.Printf("[%s] %s; version=%d", res.Status(), r["result"], int(r["_version"].(float64)))
+		}
+	}
+}
+
+func SearchLemmaData(index string, query string, es *elasticsearch.Client) *entities.SearchResponse {
+	response := new(entities.SearchResponse)
+
+	res, err := es.Search(
+		es.Search.WithIndex(index),
+		es.Search.WithQuery(query),
+		es.Search.WithAllowPartialSearchResults(true),
+		es.Search.WithPretty(),
+	)
+
+	if err != nil {
+		log.Fatalf("Error getting response: %s", err)
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		log.Printf("[%s] Error make query =%s", res.Status(), query)
+	}
+
+	if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
+		log.Printf("Error parsing the response body: %s", err)
+	}
+
+	return response
+}
+
 func BulkLemma(lemmaChan <-chan entities.Lemma, bi esutil.BulkIndexer) {
 
 	var countSuccessful uint64

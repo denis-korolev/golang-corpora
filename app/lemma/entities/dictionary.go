@@ -9,15 +9,17 @@ type Dictionary struct {
 	Restrictions struct {
 		Restr []Restriction `xml:"restr"`
 	} `xml:"restrictions"`
-	Lemmata struct {
-		Lemma []Lemma `xml:"lemma"`
-	} `xml:"lemmata"`
+	Lemmata   `xml:"lemmata"`
 	LinkTypes struct {
 		Type []LinkType `xml:"type"`
 	} `xml:"link_types"`
 	Links struct {
 		Link []Link `xml:"link"`
 	} `xml:"links"`
+}
+
+type Lemmata struct {
+	Lemma []Lemma `xml:"lemma" json:"Lemma"`
 }
 
 type Lemma struct {
