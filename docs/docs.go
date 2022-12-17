@@ -16,19 +16,55 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/lemma": {
+        "/list": {
             "get": {
-                "description": "Метод для вывода списка лемм",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Метод для вывода списка лемм. http://opencorpora.org/dict.php?act=gram",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "list"
                 ],
                 "summary": "Вывод списка лемм по запросу",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "муха",
+                        "description": "Слово по которому будет поиск",
+                        "name": "T",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "enum": [
+                                "Name",
+                                "NOUN",
+                                "ADJF",
+                                "ADJS",
+                                "COMP",
+                                "VERB",
+                                "INFN",
+                                "PRTF",
+                                "PRTS",
+                                "GRND",
+                                "NUMR",
+                                "ADVB",
+                                "NPRO",
+                                "PRED",
+                                "PREP",
+                                "CONJ",
+                                "PRCL",
+                                "INTJ"
+                            ],
+                            "type": "string"
+                        },
+                        "description": "Часть речи",
+                        "name": "V",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -49,7 +85,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "ping"
                 ],
                 "summary": "ping example",
                 "responses": {
@@ -79,7 +115,7 @@ const docTemplate = `{
                                     "properties": {
                                         "V": {
                                             "type": "string",
-                                            "example": "значение"
+                                            "example": "вариации значений из L"
                                         }
                                     }
                                 }
@@ -105,7 +141,7 @@ const docTemplate = `{
                                 "properties": {
                                     "V": {
                                         "type": "string",
-                                        "example": "значение"
+                                        "example": "падеж-число и прочее"
                                     }
                                 }
                             }

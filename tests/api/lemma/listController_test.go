@@ -1,12 +1,15 @@
 package lemma
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/magiconair/properties/assert"
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
+	"parser/app/api/lemma"
 	"parser/app/lemma/repository"
 	"parser/clients"
 	"parser/config/route"
@@ -21,20 +24,30 @@ func TestListAction(t *testing.T) {
 	//teardownSuite := setupSuite(t)
 	//defer teardownSuite(t)
 
-	//todo сделать объект запроса с параметрами
-	//todo сравнить ответ
-	//todo сделать описание граммем, чтобы можно было по ним фильтровать
-
 	router := route.SetupRoutes()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest(http.MethodGet, "/list", nil)
+
+	uri := "/list?"
+
+	params := make(url.Values)
+	params["T"] = []string{"муха"}
+	params["V"] = []string{"Name,NOUN"}
+
+	req, _ := http.NewRequest(http.MethodGet, uri+params.Encode(), nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, w.Body.String(), "{\"message\":\"Hello World\"}")
+
+	result := new(lemma.ListResponse)
+
+	json.Unmarshal(w.Body.Bytes(), &result)
+
+	assert.Equal(t, len(result.Data), 1)
+
 }
 
+/** метод чтобы перед тестом можно было что - то создать и потом удалить. Сейчас он не подключен */
 func setupSuite(tb testing.TB) func(tb testing.TB) {
 	fmt.Println("Создаем записи в таблице")
 

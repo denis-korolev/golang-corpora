@@ -28,13 +28,13 @@ type Lemma struct {
 	L   struct {
 		T string `xml:"t,attr" json:"T" example:"текст леммы"`
 		G []struct {
-			V string `xml:"v,attr" json:"V" example:"значение"`
+			V string `xml:"v,attr" json:"V" example:"падеж-число и прочее"`
 		} `xml:"g" json:"G"`
 	} `xml:"l" json:"L"`
 	F []struct {
 		T string `xml:"t,attr" json:"T" example:"текст"`
 		G []struct {
-			V string `xml:"v,attr" json:"V" example:"значение"`
+			V string `xml:"v,attr" json:"V" example:"вариации значений из L"`
 		} `xml:"g" json:"G"`
 	} `xml:"f" json:"F"`
 }

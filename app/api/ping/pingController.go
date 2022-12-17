@@ -11,7 +11,7 @@ import (
 // @Summary ping example
 // @Schemes
 // @Description Метод для вывода тестового сообщения
-// @Tags example
+// @Tags ping
 // @Accept json
 // @Produce json
 // @Success 200 {object} ping.Response

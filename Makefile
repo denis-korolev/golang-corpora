@@ -11,10 +11,11 @@ Usage: \n\
          | run-cli-list                 Вывод списка cli команд\n\
          | run-shell                 	Запустить контейнер app\n\
          | swagger-generate             Генерировать Swagger\n\
+         | update-db             		Обновить данные БД\n\
     "
 
 init: docker-down-clear \
-	docker-pull docker-build up
+	docker-pull docker-build update-db up
 up: run-web
 down: docker-down
 restart: down up
@@ -48,3 +49,6 @@ run-shell:
 
 test:
 	docker-compose run --rm app gotestsum --format testname
+
+update-db:
+	docker-compose run --rm app go run bin/main.go importLemma

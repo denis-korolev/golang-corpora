@@ -76,7 +76,7 @@ func DeleteLemmaDataByID(documentID string, es *elasticsearch.Client) {
 	}
 }
 
-func SearchLemmaData(index string, query string, es *elasticsearch.Client) *entities.SearchResponse {
+func SearchLemmaData(index string, query string, es *elasticsearch.Client) (*entities.SearchResponse, error) {
 	response := new(entities.SearchResponse)
 
 	res, err := es.Search(
@@ -99,7 +99,7 @@ func SearchLemmaData(index string, query string, es *elasticsearch.Client) *enti
 		log.Printf("Error parsing the response body: %s", err)
 	}
 
-	return response
+	return response, err
 }
 
 func BulkLemma(lemmaChan <-chan entities.Lemma, bi esutil.BulkIndexer) {

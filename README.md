@@ -22,5 +22,11 @@ TODO
 
 Свагер
 http://0.0.0.0:8081/swagger/index.html
+Описание как делать схемы
+https://github.com/swaggo/swag/blob/master/README.md#declarative-comments-format
+
 Апи
 http://0.0.0.0:8081/
+
+Описание граммем
+https://pymorphy2.readthedocs.io/en/0.4/user/grammemes.html

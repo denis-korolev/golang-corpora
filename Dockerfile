@@ -12,3 +12,5 @@ RUN go install github.com/swaggo/swag/cmd/swag
 RUN go env -w CGO_ENABLED=0
 RUN go env -w GOOS=linux
 RUN go env -w GOARCH=amd64
+ENV GOPATH /go
+ENV PATH $PATH:/go/bin:$GOPATH/bin
